@@ -22,7 +22,7 @@ bool FileIO::FetchConfig(string *ChipName,int *Feature, int *MaxTemp)
     {
 
         ifstream conf;
-        conf.open("/home/hk47/My media/nifty software/daemon/ArduinoDaemon/bin/Debug/tempMon.conf");
+        conf.open("tempMon.conf");
         if(conf.is_open())
         {
             string line;
