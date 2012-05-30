@@ -32,7 +32,7 @@ LIB_DEBUG = $(LIB)
 LDFLAGS_DEBUG =  $(LDFLAGS)
 OBJDIR_DEBUG = obj/Debug
 DEP_DEBUG = 
-OUT_DEBUG = bin/Debug/ArduinoDaemon
+OUT_DEBUG = bin/Debug/tempMon
 
 INC_RELEASE =  $(INC)
 CFLAGS_RELEASE =  $(CFLAGS) -O2
@@ -43,7 +43,7 @@ LIB_RELEASE = $(LIB)
 LDFLAGS_RELEASE =  $(LDFLAGS) -s
 OBJDIR_RELEASE = obj/Release
 DEP_RELEASE = 
-OUT_RELEASE = bin/Release/ArduinoDaemon
+OUT_RELEASE = bin/Release/tempMon
 
 OBJ_DEBUG = $(OBJDIR_DEBUG)/Broadcast.o $(OBJDIR_DEBUG)/FileIO.o $(OBJDIR_DEBUG)/SensorData.o $(OBJDIR_DEBUG)/main.o
 

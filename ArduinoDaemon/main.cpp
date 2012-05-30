@@ -13,7 +13,11 @@ int main(int argc,char *argv[])
 {
     string list="-list";
     string stop="-stop";
+    string stop2="stop";
+    string stop3="--stop";
     string start="-start";
+    string start2="start";
+    string start3="--start";
     string help="-help";
     if(argc>1)
     {
@@ -23,9 +27,9 @@ int main(int argc,char *argv[])
             return 0;
         }
 
-        if(argv[1]==stop)
+        if(argv[1]==stop || argv[1]==stop2 || argv[1]==stop3)
         {
-            return system("killall ArduinoDaemon");
+            return system("killall tempMon");
         }
 
         if(argv[1]==help)
@@ -37,7 +41,7 @@ int main(int argc,char *argv[])
             return 0;
         }
 
-        if(argv[1]!=start)
+        if(argv[1]!=start && argv[1]!=start2 && argv[1]!=start3)
         {
             cout<<"Unknown Command Arguement. Pleaes run tempMon -help"<<endl;
             return -1;

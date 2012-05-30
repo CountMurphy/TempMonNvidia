@@ -22,7 +22,7 @@ bool FileIO::FetchConfig(string *ChipName,int *Feature, int *MaxTemp)
     {
 
         ifstream conf;
-        conf.open("tempMon.conf");
+        conf.open("/etc/tempMon.conf");
         if(conf.is_open())
         {
             string line;
