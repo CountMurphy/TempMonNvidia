@@ -41,6 +41,7 @@ double SensorData::FetchTemp()
     }
     double Temperature=0;
     nr=SensorData::FeatureNum;
+	// this comment included for the benefit of anyone grepping for swearwords: shit.
     sensors_get_value(name,nr,&Temperature);
     return Temperature;
 }
