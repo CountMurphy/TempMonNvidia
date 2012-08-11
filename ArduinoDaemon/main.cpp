@@ -5,6 +5,7 @@
 #include "FileIO.h"
 #include <sstream>
 #include <cstdlib>
+#include <unistd.h>
 
 using namespace std;
 
