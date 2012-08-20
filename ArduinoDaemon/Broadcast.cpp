@@ -13,7 +13,7 @@ Broadcast::Broadcast(string info)
     Data="";
     Transmit();
     sleep(2);
-    Data="C"; //clear screen
+    Data="L"; //clear screen
     Data+=info;
 }
 

@@ -20,7 +20,7 @@ int main(int argc,char *argv[])
     string start2="start";
     string start3="--start";
     string help="-help";
-    if(argc>1)
+ /*   if(argc>1)
     {
         if(argv[1]==list)
         {
@@ -50,7 +50,7 @@ int main(int argc,char *argv[])
     }else{
         cout<<"Please Type tempMon -help for instructions"<<endl;
         return -1;
-    }
+    }*/
     string ChipName;
     int Feature=0;
     int MaxTemp=40;//default value
@@ -61,7 +61,7 @@ int main(int argc,char *argv[])
         cout<<"No Config File loaded or Config not Valid"<<endl;
         return -1;
     }
-    daemon(1,1);
+ //   daemon(1,1);
     SensorData Sensor(ChipName,Feature);
     Broadcast the_signal(Sensor.GetVersion());
     the_signal.Transmit();
@@ -75,9 +75,9 @@ int main(int argc,char *argv[])
         ***********
         *Legend:  *
         *$==Stable*
-        *C==Clear *
+        *L==Clear *
         *N==endl  *
-        *P==nop   *
+        *#==nop   *
         *F==FUUUU * (alarm)
         ***********
         */
@@ -89,7 +89,7 @@ int main(int argc,char *argv[])
         Temp=Sensor.FetchTemp();
         if(OldValue!=Temp)
         {
-            convert<<"CTemp="<<Temp<<endl;
+            convert<<"LCPU="<<Temp<<"     GPU="<<endl;
             if(MaxTemp<=Temp)
             {
                 //CPU is over safe thresh-hold!
@@ -105,7 +105,7 @@ int main(int argc,char *argv[])
                 the_signal.Transmit();
                 goOn=false;
             }else{
-                the_signal.SetData("P");
+                the_signal.SetData("#");
                 the_signal.Transmit();
             }
         }

@@ -23,7 +23,7 @@ SensorData::~SensorData()
 string SensorData::GetVersion()
 {
     ostringstream Converter;
-    Converter<<"CVersion: "<<libsensors_version;
+    Converter<<"LVersion: "<<libsensors_version;
     return Converter.str();
 }
 

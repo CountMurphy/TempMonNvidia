@@ -2,7 +2,7 @@
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
 	<File name="Broadcast.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="266" topLine="0" />
+		<Cursor position="249" topLine="0" />
 	</File>
 	<File name="Broadcast.h" open="1" top="0" tabpos="3">
 		<Cursor position="63" topLine="0" />
@@ -14,12 +14,12 @@
 		<Cursor position="184" topLine="0" />
 	</File>
 	<File name="SensorData.cpp" open="1" top="0" tabpos="5">
-		<Cursor position="793" topLine="6" />
+		<Cursor position="421" topLine="0" />
 	</File>
 	<File name="SensorData.h" open="1" top="0" tabpos="4">
 		<Cursor position="164" topLine="0" />
 	</File>
 	<File name="main.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="656" topLine="9" />
+		<Cursor position="2116" topLine="60" />
 	</File>
 </CodeBlocks_layout_file>
