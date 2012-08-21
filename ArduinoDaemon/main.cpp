@@ -1,12 +1,12 @@
 #include <iostream>
 #include <string>
-#include "Broadcast.h"
-#include "SensorData.h"
-#include "FileIO.h"
 #include <sstream>
 #include <cstdlib>
 #include <unistd.h>
-#include "nvml.h"
+#include "Broadcast.h"
+#include "SensorData.h"
+#include "FileIO.h"
+#include "Nvidia.h"
 
 using namespace std;
 
@@ -90,7 +90,7 @@ int main(int argc,char *argv[])
         Temp=Sensor.FetchTemp();
         if(OldValue!=Temp)
         {
-            convert<<"LCPU="<<Temp<<"     GPU="<<endl;
+            convert<<"LCPU="<<Temp<<"   GPU="<<endl;
             if(MaxTemp<=Temp)
             {
                 //CPU is over safe thresh-hold!

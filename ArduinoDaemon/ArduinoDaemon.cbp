@@ -40,6 +40,8 @@
 		<Unit filename="Broadcast.h" />
 		<Unit filename="FileIO.cpp" />
 		<Unit filename="FileIO.h" />
+		<Unit filename="Nvidia.cpp" />
+		<Unit filename="Nvidia.h" />
 		<Unit filename="SensorData.cpp" />
 		<Unit filename="SensorData.h" />
 		<Unit filename="main.cpp" />
