@@ -21,7 +21,7 @@ int main(int argc,char *argv[])
     string start2="start";
     string start3="--start";
     string help="-help";
- /*   if(argc>1)
+    if(argc>1)
     {
         if(argv[1]==list)
         {
@@ -51,7 +51,7 @@ int main(int argc,char *argv[])
     }else{
         cout<<"Please Type tempMon -help for instructions"<<endl;
         return -1;
-    }*/
+    }
     string ChipName;
     int Feature=0;
     int MaxTemp=40;//default value
@@ -62,11 +62,15 @@ int main(int argc,char *argv[])
         cout<<"No Config File loaded or Config not Valid"<<endl;
         return -1;
     }
- //   daemon(1,1);
+    daemon(1,1);
     SensorData Sensor(ChipName,Feature);
     Broadcast the_signal(Sensor.GetVersion());
     the_signal.Transmit();
+
+    Nvidia gpu;
+
     double Temp;
+    unsigned int GPUTemp;
     sleep(5);
     bool goOn=false;
     ostringstream convert;
@@ -86,23 +90,39 @@ int main(int argc,char *argv[])
         //clear convert buffer
         convert.str(string());
 
-        double OldValue=Temp;
+        double OldCPU=Temp;
         Temp=Sensor.FetchTemp();
-        if(OldValue!=Temp)
+        unsigned int OldGPU=GPUTemp;
+        GPUTemp=gpu.FetchTemp();
+        bool unStableCPU,unStableGPU;
+        unStableCPU=OldCPU!=Temp;
+        unStableGPU=OldGPU!=GPUTemp;
+
+        if(unStableCPU || unStableGPU )
         {
-            convert<<"LCPU="<<Temp<<"   GPU="<<endl;
+            convert<<"LCPU="<<Temp<<"   GPU="<<GPUTemp<<endl;
             if(MaxTemp<=Temp)
             {
                 //CPU is over safe thresh-hold!
                 convert<<"F";
             }
+                if(!unStableCPU && unStableGPU)
+                {
+                    convert<<"N$"<<endl;
+                }
+                if(unStableCPU && !unStableGPU)
+                {
+                    convert<<"N         $"<<endl;
+                }
             the_signal.SetData(convert.str());
             the_signal.Transmit();
             goOn=true;
         }else{
             if(goOn)
             {
-                the_signal.SetData("N$");
+                //insert Stable commands
+
+                the_signal.SetData("N$   $");
                 the_signal.Transmit();
                 goOn=false;
             }else{
@@ -112,11 +132,6 @@ int main(int argc,char *argv[])
         }
         sleep(1);
     }
-/*    cout<<"Data to Transmit?:"<<endl;
-    string data;
-    cin>>data;
-    the_signal.SetData(data);
-    the_signal.Transmit();
-    */
+
     return 0;
 }

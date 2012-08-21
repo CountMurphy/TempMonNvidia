@@ -7,7 +7,7 @@ class Nvidia
     public:
         Nvidia();
         virtual ~Nvidia();
-        double FetchTemp();
+        unsigned int FetchTemp();
     protected:
     private:
 };

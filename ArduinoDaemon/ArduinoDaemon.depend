@@ -197,7 +197,7 @@
 	<string>
 	<sensors/sensors.h>
 
-1345514953 source:/home/hk47/My media/nifty software/git/tempMonNvidia/ArduinoDaemon/main.cpp
+1345524144 source:/home/hk47/My media/nifty software/git/tempMonNvidia/ArduinoDaemon/main.cpp
 	<iostream>
 	<string>
 	<sstream>
@@ -210,10 +210,10 @@
 
 1337158894 /home/hk47/My media/nifty software/git/tempMonNvidia/ArduinoDaemon/nvml.h
 
-1345514882 source:/home/hk47/My media/nifty software/git/tempMonNvidia/ArduinoDaemon/Nvidia.cpp
+1345528190 source:/home/hk47/My media/nifty software/git/tempMonNvidia/ArduinoDaemon/Nvidia.cpp
 	"Nvidia.h"
 	"nvml.h"
 
-1345515290 /home/hk47/My media/nifty software/git/tempMonNvidia/ArduinoDaemon/Nvidia.h
+1345525126 /home/hk47/My media/nifty software/git/tempMonNvidia/ArduinoDaemon/Nvidia.h
 	"nvml.h"
 
