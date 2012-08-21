@@ -167,3 +167,46 @@
 	<cstdlib>
 	<unistd.h>
 
+1345491581 source:/home/hk47/My media/nifty software/git/tempMonNvidia/ArduinoDaemon/Broadcast.cpp
+	<SerialStream.h>
+	"string.h"
+	"Broadcast.h"
+	<iostream>
+
+1345491581 /home/hk47/My media/nifty software/git/tempMonNvidia/ArduinoDaemon/Broadcast.h
+	"string.h"
+
+1345491581 source:/home/hk47/My media/nifty software/git/tempMonNvidia/ArduinoDaemon/FileIO.cpp
+	"FileIO.h"
+	<fstream>
+	<string>
+	<iostream>
+	<cstdlib>
+
+1345491581 /home/hk47/My media/nifty software/git/tempMonNvidia/ArduinoDaemon/FileIO.h
+	<string>
+
+1345491581 source:/home/hk47/My media/nifty software/git/tempMonNvidia/ArduinoDaemon/SensorData.cpp
+	<sensors/sensors.h>
+	"SensorData.h"
+	<string>
+	<sstream>
+	<iostream>
+
+1345491581 /home/hk47/My media/nifty software/git/tempMonNvidia/ArduinoDaemon/SensorData.h
+	<string>
+	<sensors/sensors.h>
+
+1345513891 source:/home/hk47/My media/nifty software/git/tempMonNvidia/ArduinoDaemon/main.cpp
+	<iostream>
+	<string>
+	"Broadcast.h"
+	"SensorData.h"
+	"FileIO.h"
+	<sstream>
+	<cstdlib>
+	<unistd.h>
+	"nvml.h"
+
+1337158894 /home/hk47/My media/nifty software/git/tempMonNvidia/ArduinoDaemon/nvml.h
+

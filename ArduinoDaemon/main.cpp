@@ -6,6 +6,7 @@
 #include <sstream>
 #include <cstdlib>
 #include <unistd.h>
+#include "nvml.h"
 
 using namespace std;
 
