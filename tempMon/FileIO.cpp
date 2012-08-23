@@ -22,7 +22,7 @@ bool FileIO::FetchConfig(string *ChipName,int *Feature, int *MaxTemp)
     {
 
         ifstream conf;
-        conf.open("tempMon.conf");
+        conf.open("/etc/tempMon.conf");
         if(conf.is_open())
         {
             string line;
@@ -34,15 +34,31 @@ bool FileIO::FetchConfig(string *ChipName,int *Feature, int *MaxTemp)
                     continue;
                 }else{
                     int eq=line.find_first_of('=');
+
+                    string Var="";
+                    for(int i=0;i<=eq-1;i++)
+                    {
+                        Var+=line[i];
+                    }
+
                     string Value="";
                     for(unsigned int i=eq+1;i<=line.length();i++)
                         {
                             Value+=line[i];
                         }
+
                     //Get CPU
-                    if(line[0]=='C' && line[1]=='h' && line[2]=='i' && line[3]=='p')
+                    if(Var=="Chip")
                     {
-                        *ChipName=Value;
+                        *ChipName=Value.c_str();
+                    }
+                    if(Var=="Feature")
+                    {
+                        *Feature=atoi(Value.c_str());
+                    }
+                    if(Var=="Max")
+                    {
+                        *MaxTemp=atoi(Value.c_str());
                     }
                 }
             }
