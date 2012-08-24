@@ -16,7 +16,7 @@ FileIO::~FileIO()
 }
 
 
-bool FileIO::FetchConfig(string *ChipName,int *Feature, int *MaxTemp)
+bool FileIO::FetchConfig(string *ChipName,int *Feature, int *MaxTemp,bool *UseTmp)
 {
     try
     {
@@ -60,6 +60,11 @@ bool FileIO::FetchConfig(string *ChipName,int *Feature, int *MaxTemp)
                     {
                         *MaxTemp=atoi(Value.c_str());
                     }
+                    if(Var=="UseTmp")
+                    {
+                        Value.resize(Value.size()-1,' ');
+                        *UseTmp = Value =="true" || Value =="True"?true:false;
+                    }
                 }
             }
             return true;
@@ -72,3 +77,60 @@ bool FileIO::FetchConfig(string *ChipName,int *Feature, int *MaxTemp)
         return false;
     }
 }
+
+
+
+bool FileIO::WritePID(int PID,bool UseTmp)
+{
+    try
+    {
+        ofstream scribe;
+        if(UseTmp)
+        {
+            scribe.open("/tmp/tempMon.pid",ios::out);
+        }else{
+            scribe.open("/var/run/tempMon.pid",ios::out);
+        }
+        if(!scribe)
+        {
+            //Permission denied
+            return false;
+        }
+        scribe<<PID;
+        scribe.close();
+        return true;
+    }
+    catch(...)
+    {
+        return false;
+    }
+}
+
+
+pid_t FileIO::FetchPID(bool UseTmp)
+{
+    try
+    {
+        ifstream scribe;
+        if(UseTmp)
+        {
+            scribe.open("/tmp/tempMon.pid",ios::in);
+        }else{
+            scribe.open("/var/run/tempMon.pid",ios::in);
+        }
+        if(!scribe)
+        {
+            //Permission denied
+            return -1;
+        }
+        pid_t pid=-1;
+        scribe>>pid;
+        return pid;
+    }
+    catch(...)
+    {
+        return -1;
+    }
+}
+
+

@@ -3,6 +3,7 @@
 #include <sstream>
 #include <cstdlib>
 #include <unistd.h>
+#include <signal.h>
 #include "Broadcast.h"
 #include "SensorData.h"
 #include "FileIO.h"
@@ -21,6 +22,12 @@ int main(int argc,char *argv[])
     string start2="start";
     string start3="--start";
     string help="-help";
+
+    string ChipName;
+    int Feature=0;
+    int MaxTemp=40;//default value
+    bool UseTmp=false;
+
     if(argc>1)
     {
         if(argv[1]==list)
@@ -31,7 +38,18 @@ int main(int argc,char *argv[])
 
         if(argv[1]==stop || argv[1]==stop2 || argv[1]==stop3)
         {
-            return system("killall tempMon");
+            //return system("killall tempMon");
+            FileIO configs;
+            configs.FetchConfig(&ChipName,&Feature,&MaxTemp,&UseTmp);
+            pid_t pid=configs.FetchPID(UseTmp);
+            if(pid==-1)
+            {
+                cout<<"Something horribly wrong!  Cannot terminate Daemon.  Good luck sucker"<<endl;
+            }else{
+                kill(pid,SIGTERM);
+                cout<<"TempMon Terminated"<<endl;
+                return 0;
+            }
         }
 
         if(argv[1]==help)
@@ -52,17 +70,23 @@ int main(int argc,char *argv[])
         cout<<"Please Type tempMon -help for instructions"<<endl;
         return -1;
     }
-    string ChipName;
-    int Feature=0;
-    int MaxTemp=40;//default value
-    FileIO config;
-    bool configLoaded=config.FetchConfig(&ChipName,&Feature,&MaxTemp);
+
+    FileIO Scribe;
+    bool configLoaded=Scribe.FetchConfig(&ChipName,&Feature,&MaxTemp,&UseTmp);
     if(!configLoaded)
     {
         cout<<"No Config File loaded or Config not Valid"<<endl;
         return -1;
     }
     daemon(1,1);
+    //Grab current PID for daemon termination
+    pid_t PID=getpid();
+    if(!Scribe.WritePID((int)PID,UseTmp))
+    {
+        cerr<<"Permission denied.  Must run as root."<<endl;
+        return -1;
+    }
+
     SensorData Sensor(ChipName,Feature);
     Broadcast the_signal(Sensor.GetVersion());
     the_signal.Transmit();
