@@ -21,7 +21,11 @@ int main(int argc,char *argv[])
     string start="-start";
     string start2="start";
     string start3="--start";
+    string restart="-restart";
+    string restart2="--restart";
+    string restart3="restart";
     string help="-help";
+    bool restarting=false;
 
     string ChipName;
     int Feature=0;
@@ -36,7 +40,7 @@ int main(int argc,char *argv[])
             return 0;
         }
 
-        if(argv[1]==stop || argv[1]==stop2 || argv[1]==stop3)
+        if(argv[1]==stop || argv[1]==stop2 || argv[1]==stop3 || argv[1]==restart || argv[1]==restart2 || argv[1]==restart3)
         {
             //return system("killall tempMon");
             FileIO configs;
@@ -47,8 +51,14 @@ int main(int argc,char *argv[])
                 cout<<"Something horribly wrong!  Cannot terminate Daemon.  Good luck sucker"<<endl;
             }else{
                 kill(pid,SIGTERM);
-                cout<<"TempMon Terminated"<<endl;
-                return 0;
+                if(argv[1]==stop || argv[1]==stop2 || argv[1]==stop3)
+                {
+                    cout<<"TempMon Terminated"<<endl;
+                    return 0;
+                }else{
+                    cout<<"Restarting"<<endl;
+                    restarting=true;
+                }
             }
         }
 
@@ -58,10 +68,11 @@ int main(int argc,char *argv[])
             cout<<"-start to start the daemon"<<endl<<endl;
             cout<<"-list to list all possible chips to read sensor data from and there subfeatures"<<endl<<"Please read the .conf file for more info"<<endl<<endl;
             cout<<"-stop to terminate all running instances of the daemon"<<endl;
+            cout<<"-restart to restart daemon"<<endl;
             return 0;
         }
 
-        if(argv[1]!=start && argv[1]!=start2 && argv[1]!=start3)
+        if(!restarting && argv[1]!=start && argv[1]!=start2 && argv[1]!=start3)
         {
             cout<<"Unknown Command Arguement. Pleaes run tempMon -help"<<endl;
             return -1;
