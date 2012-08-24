@@ -111,6 +111,7 @@ pid_t FileIO::FetchPID(bool UseTmp)
 {
     try
     {
+        pid_t pid=-1;
         ifstream scribe;
         if(UseTmp)
         {
@@ -121,10 +122,11 @@ pid_t FileIO::FetchPID(bool UseTmp)
         if(!scribe)
         {
             //Permission denied
-            return -1;
+            return pid;
         }
-        pid_t pid=-1;
         scribe>>pid;
+        //Delete pid file so future instances of tempMon do not kill random processes
+        killPID_File(UseTmp);
         return pid;
     }
     catch(...)
@@ -133,4 +135,12 @@ pid_t FileIO::FetchPID(bool UseTmp)
     }
 }
 
-
+void FileIO::killPID_File(bool UseTmp)
+{
+    if(UseTmp)
+    {
+        remove("/tmp/tempMon.pid");
+    }else{
+        remove("/var/run/tempMon.pid");
+    }
+}

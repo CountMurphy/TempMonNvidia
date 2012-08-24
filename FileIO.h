@@ -13,7 +13,7 @@ class FileIO
         pid_t FetchPID(bool);
     protected:
     private:
-
+        void killPID_File(bool);
 };
 
 #endif // FILEIO_H

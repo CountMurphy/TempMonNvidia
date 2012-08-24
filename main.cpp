@@ -53,7 +53,7 @@ int main(int argc,char *argv[])
                 kill(pid,SIGTERM);
                 if(argv[1]==stop || argv[1]==stop2 || argv[1]==stop3)
                 {
-                    cout<<"TempMon Terminated"<<endl;
+                    cout<<"Terminated"<<endl;
                     return 0;
                 }else{
                     cout<<"Restarting"<<endl;
