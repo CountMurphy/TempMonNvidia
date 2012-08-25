@@ -137,7 +137,7 @@ int main(int argc,char *argv[])
 
         //There seems to be a bug in lm_sensors.  Every now and then the reading will not be accurate (IE temp jumping 30 degrees in a second and then back down)
         //Check if high value is consistant for over a second
-        if(MaxTemp<=Temp)
+        if(MaxTemp<=Temp && Temp==OldCPU)
         {
             //CPU is over safe thresh-hold!
             DataToSend="F";
