@@ -109,9 +109,9 @@ bool FileIO::WritePID(int PID,bool UseTmp)
 
 pid_t FileIO::FetchPID(bool UseTmp)
 {
+    pid_t pid=-1;
     try
     {
-        pid_t pid=-1;
         ifstream scribe;
         if(UseTmp)
         {
@@ -131,7 +131,7 @@ pid_t FileIO::FetchPID(bool UseTmp)
     }
     catch(...)
     {
-        return -1;
+        return pid;
     }
 }
 

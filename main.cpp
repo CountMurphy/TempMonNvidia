@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 #include <sstream>
-#include <cstdlib>
 #include <unistd.h>
 #include <signal.h>
 #include "Broadcast.h"
@@ -14,19 +13,6 @@ using namespace std;
 
 int main(int argc,char *argv[])
 {
-    string list="-list";
-    string stop="-stop";
-    string stop2="stop";
-    string stop3="--stop";
-    string start="-start";
-    string start2="start";
-    string start3="--start";
-    string restart="-restart";
-    string restart2="--restart";
-    string restart3="restart";
-    string help="-help";
-    bool restarting=false;
-
     string ChipName;
     int Feature=0;
     int MaxTemp=40;//default value
@@ -34,35 +20,49 @@ int main(int argc,char *argv[])
 
     if(argc>1)
     {
-        if(argv[1]==list)
+        string argument=argv[1];
+        if(argument[0]=='-')
+        {
+            //remove dashes
+            string tempVar="";
+            for(unsigned int i=0;i<argument.length();i++)
+            {
+                if(argument[i]!='-')
+                {
+                    tempVar+=argument[i];
+                }
+            }
+            tempVar+="\0";
+            argument=tempVar;
+        }
+
+        if(argument=="list")
         {
             SensorData::print_Info();
             return 0;
         }
 
-        if(argv[1]==stop || argv[1]==stop2 || argv[1]==stop3 || argv[1]==restart || argv[1]==restart2 || argv[1]==restart3)
+        if(argument=="stop" || argument=="restart")
         {
-            //return system("killall tempMon");
             FileIO configs;
             configs.FetchConfig(&ChipName,&Feature,&MaxTemp,&UseTmp);
             pid_t pid=configs.FetchPID(UseTmp);
             if(pid==-1)
             {
-                cout<<"Something horribly wrong!  Cannot terminate Daemon.  Good luck sucker"<<endl;
+                cout<<"Something went horribly wrong!  Cannot terminate Daemon.  Good luck sucker"<<endl;
             }else{
                 kill(pid,SIGTERM);
-                if(argv[1]==stop || argv[1]==stop2 || argv[1]==stop3)
+                if(argument=="stop")
                 {
                     cout<<"Terminated"<<endl;
                     return 0;
                 }else{
                     cout<<"Restarting"<<endl;
-                    restarting=true;
                 }
             }
         }
 
-        if(argv[1]==help)
+        if(argument=="help")
         {
             cout<<"The Commands are:"<<endl<<endl;
             cout<<"-start to start the daemon"<<endl<<endl;
@@ -72,7 +72,7 @@ int main(int argc,char *argv[])
             return 0;
         }
 
-        if(!restarting && argv[1]!=start && argv[1]!=start2 && argv[1]!=start3)
+        if(argument!="restart" && argument!="start")
         {
             cout<<"Unknown Command Arguement. Pleaes run tempMon -help"<<endl;
             return -1;
@@ -129,30 +129,30 @@ int main(int argc,char *argv[])
         Temp=Sensor.FetchTemp();
         unsigned int OldGPU=GPUTemp;
         GPUTemp=gpu.FetchTemp();
-        bool unStableCPU,unStableGPU;
-        unStableCPU=OldCPU!=Temp;
-        unStableGPU=OldGPU!=GPUTemp;
+        bool StableCPU,StableGPU;
+        StableCPU= (OldCPU==Temp);
+        StableGPU= (OldGPU==GPUTemp);
         string DataToSend="";
 
 
         //There seems to be a bug in lm_sensors.  Every now and then the reading will not be accurate (IE temp jumping 30 degrees in a second and then back down)
         //Check if high value is consistant for over a second
-        if(MaxTemp<=Temp && Temp==OldCPU)
+        if(Temp>=MaxTemp && (OldCPU>=MaxTemp))
         {
             //CPU is over safe thresh-hold!
             DataToSend="F";
         }
 
 
-        if(unStableCPU || unStableGPU )
+        if(!StableCPU || !StableGPU )
         {
             convert<<"LCPU="<<Temp<<"   GPU="<<GPUTemp<<endl;
 
-            if(!unStableCPU && unStableGPU)
+            if(StableCPU && !StableGPU)
             {
                 convert<<"N$"<<endl;
             }
-            if(unStableCPU && !unStableGPU)
+            if(!StableCPU && StableGPU)
             {
                 convert<<"N         $"<<endl;
             }
