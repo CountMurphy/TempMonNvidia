@@ -132,39 +132,46 @@ int main(int argc,char *argv[])
         bool unStableCPU,unStableGPU;
         unStableCPU=OldCPU!=Temp;
         unStableGPU=OldGPU!=GPUTemp;
+        string DataToSend="";
+
+
+        //There seems to be a bug in lm_sensors.  Every now and then the reading will not be accurate (IE temp jumping 30 degrees in a second and then back down)
+        //Check if high value is consistant for over a second
+        if(MaxTemp<=Temp)
+        {
+            //CPU is over safe thresh-hold!
+            DataToSend="F";
+        }
+
 
         if(unStableCPU || unStableGPU )
         {
             convert<<"LCPU="<<Temp<<"   GPU="<<GPUTemp<<endl;
-            if(MaxTemp<=Temp)
+
+            if(!unStableCPU && unStableGPU)
             {
-                //CPU is over safe thresh-hold!
-                convert<<"F";
+                convert<<"N$"<<endl;
             }
-                if(!unStableCPU && unStableGPU)
-                {
-                    convert<<"N$"<<endl;
-                }
-                if(unStableCPU && !unStableGPU)
-                {
-                    convert<<"N         $"<<endl;
-                }
-            the_signal.SetData(convert.str());
-            the_signal.Transmit();
+            if(unStableCPU && !unStableGPU)
+            {
+                convert<<"N         $"<<endl;
+            }
+            DataToSend+=convert.str();
             goOn=true;
         }else{
             if(goOn)
             {
                 //insert Stable commands
 
-                the_signal.SetData("N$   $");
-                the_signal.Transmit();
+                DataToSend+= "N$   $";
                 goOn=false;
             }else{
-                the_signal.SetData("#");
-                the_signal.Transmit();
+                DataToSend+= "#";
             }
         }
+
+        the_signal.SetData(DataToSend);
+        the_signal.Transmit();
         sleep(1);
     }
 
