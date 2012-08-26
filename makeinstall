@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cp tempMon.conf /etc/
+cp bin/Release/tempMon /usr/sbin
