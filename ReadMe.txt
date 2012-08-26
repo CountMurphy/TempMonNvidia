@@ -29,6 +29,7 @@ just run make, then make-install.  Thats it.
 Note: 
     *  You must have libsensors ("sudo apt-get install lmsensors" if you running ubuntu), libserial (can find in your repositories) and libnvidia-ml if using tempMonNvidia (automatically installed if you are using the offical closed source driver)
 	*  If running a 32-bit system the initial compile might fail.  This is because the make file is looking in the wrong spot for the required libs.  If it complanes that libsensors cannot be found, type "locate libsensors" into your terminal.  It should give you the correct path to the library.  Edit the make file accordingly.
+	* The daemon wont function properly until you edit the config file
 	
 ****************
 Usage
