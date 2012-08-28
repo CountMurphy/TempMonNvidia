@@ -19,7 +19,7 @@ Contents:
 **************
 About
 **************
-TempMon is a simple Linux Daemon that polls your system for Processor (and GPU if running TempMonNvidia) for temperature readings.  TempMon then sends that data to a Serial connected USB reader (source code for reader is included).  All of the settings for the daemon are stored in /etc/tempMon.config.  If you are running tempMon, your screen can display CPU tempurature and fan RPM.  If you are running tempMonNvidia, your screen will display CPU temperature and GPU temperature.
+TempMon is a simple Linux Daemon that polls your system for Processor (and GPU if running TempMonNvidia) temperature readings.  TempMon then sends that data to a Serial connected USB reader (source code for reader is included).  All of the settings for the daemon are stored in /etc/tempMon.config.  If you are running tempMon, your screen can display CPU tempurature and fan RPM.  If you are running tempMonNvidia, your screen will display CPU temperature and GPU temperature.
 
 **************
 Install
@@ -35,7 +35,7 @@ Note:
 Usage
 ****************
 
-The first thing you need to do is type "tempMon -list".  This will present you with the required information to set up your config file.  At present, tempMon isn't started like a regular daemon.  This is mostly because I am lazy, and its the first "beta" release.  To start the daemon just type "tempMon -start" into your terminal.  Eventually I'll figure out how to install the daemon properly.
+The first thing you need to do is type "tempMon -list".  This will present you with the required information to set up your config file.  At present, tempMon isn't started like a regular daemon.  Since most distros handle daemons differently (at least the ones I use), I have not made start scripts for the daemon (its the first "beta" release).  To start the daemon just type "tempMon -start" into your terminal.  Eventually I'll figure out how to install the daemon properly.
 
 ****************
 FAQ
