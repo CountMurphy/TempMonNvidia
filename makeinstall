@@ -2,4 +2,6 @@
 
 cp tempMon.conf /etc/
 cp bin/Release/tempMon /usr/sbin
+cp tempMon.service /usr/lib/systemd/system/g15daemon.service
 echo "Please run tempMon -list to get the values needed for the config file"
+echo "If using Systemd please run 'systemctl enable tempMon'"

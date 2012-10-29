@@ -35,7 +35,7 @@ Note:
 Usage
 ****************
 
-The first thing you need to do is type "tempMon -list".  This will present you with the required information to set up your config file.  At present, tempMon isn't started like a regular daemon.  Since most distros handle daemons differently (at least the ones I use), I have not made start scripts for the daemon (its the first "beta" release).  To start the daemon just type "tempMon -start" into your terminal.  Eventually I'll figure out how to install the daemon properly.
+The first thing you need to do is type "tempMon -list".  This will present you with the required information to set up your config file.  To start the daemon just type "tempMon -start" into your terminal.  If your system uses Systemd, the startup script it included
 
 ****************
 FAQ

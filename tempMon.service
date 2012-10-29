@@ -1,0 +1,10 @@
+[Unit]
+Description=Temperature Monitoring Daemon
+
+[Service]
+Type=forking
+PIDFile=/run/tempMon.pid
+ExecStart=/usr/sbin/tempMon --start
+
+[Install]
+WantedBy=multi-user.target
