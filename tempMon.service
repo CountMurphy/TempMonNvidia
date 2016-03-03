@@ -3,6 +3,7 @@ Description=Temperature Monitoring Daemon
 
 [Service]
 Type=forking
+Restart=always
 PIDFile=/run/tempMon.pid
 ExecStart=/usr/sbin/tempMon --start
 
