@@ -152,7 +152,7 @@ int main(int argc,char *argv[])
 
             if(!StableCPU || !StableGPU )
             {
-                convert<<"LCPU="<<Temp<<"   GPU="<<GPUTemp<<endl;
+                convert<<"LCPU="<<(int)Temp<<"   GPU="<<GPUTemp<<endl;
 
                 if(StableCPU && !StableGPU)
                 {
